@@ -1,12 +1,14 @@
+import { ChartValueType } from "../types/types";
+
 type QuckSortTypes = {
   startPoint?: number;
-  unsortedNumbers: number[];
+  unsortedNumbers: ChartValueType[];
 };
 
 export const quickSort = ({
   startPoint = 0,
   unsortedNumbers,
-}: QuckSortTypes): number[] => {
+}: QuckSortTypes): ChartValueType[] => {
   const numbersCount = unsortedNumbers.length;
 
   if (numbersCount < 2) {
@@ -19,10 +21,10 @@ export const quickSort = ({
   const right = [];
 
   while (startPoint < timesToLoop) {
-    if (unsortedNumbers[startPoint] < current) {
+    if (unsortedNumbers[startPoint].value < current.value) {
       left.push(unsortedNumbers[startPoint]);
     }
-    if (unsortedNumbers[startPoint] >= current) {
+    if (unsortedNumbers[startPoint].value >= current.value) {
       right.push(unsortedNumbers[startPoint]);
     }
     startPoint++;
