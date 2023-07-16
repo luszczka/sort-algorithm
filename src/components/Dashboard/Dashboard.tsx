@@ -1,15 +1,19 @@
 import { ChangeEvent, useState } from "react";
 import { getRandomNumberInRange } from "../../utils/getRandomNumberInRange";
 import { quickSort } from "../../utils/quickSort";
-import { BarChart, Bar } from "recharts";
+import { BarChart, Bar, ResponsiveContainer } from "recharts";
 
 import {
-  StyledButtonsWrapper,
   StyledChartWrapper,
   StyledDashboardWrapper,
+  StyledSettingsBoardWrapper,
 } from "./Dashboard.styled";
 import { ChartOptions, ChartValueType } from "../../types/types";
 import { getChartValues } from "../../utils/getChartValues";
+import { SettingsInputs } from "../SettingsInputs/SettingsInputs";
+import { SettingsButtons } from "../SettingsButtons/SettingsButtons";
+import { Expander } from "../Expander/Expander";
+import { ControlsPanel } from "../ControlsPanel/ControlsPanel";
 
 export const Dashboard = () => {
   const defaultValues = { chartSize: 20, minRange: 1, maxRange: 100 };
@@ -22,6 +26,12 @@ export const Dashboard = () => {
 
   const [chartValues, setChartValues] = useState<ChartValueType[]>();
 
+  const [isSettingsOpen, setIsSettingsOpen] = useState(true);
+
+  const onExpanderClick = () => {
+    setIsSettingsOpen(!isSettingsOpen);
+  };
+
   const onMaxRangeChange = (event: ChangeEvent<HTMLInputElement>) => {
     setChartOptions({ ...chartOptions, maxRange: +event.target.value });
   };
@@ -30,12 +40,13 @@ export const Dashboard = () => {
     setChartOptions({ ...chartOptions, minRange: +event.target.value });
   };
 
-  const onInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const onElementsCountChange = (event: ChangeEvent<HTMLInputElement>) => {
     setChartOptions({ ...chartOptions, chartSize: +event.target.value });
   };
 
   const onGenerateChartClick = () => {
     setChartValues(getChartValues(chartOptions));
+    console.log(chartValues);
   };
 
   const onRandomClick = () => {
@@ -58,68 +69,40 @@ export const Dashboard = () => {
     setChartValues(quickSort({ unsortedNumbers: chartValues }));
   };
 
+  const onFrameBack = () => {};
+
+  const onFrameForward = () => {};
+
   return (
-    <>
-      <div style={{ display: "flex" }}>
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          set the chart range from
-          <input
-            onChange={onMinRangeChange}
-            type="number"
-            value={chartOptions.minRange}
-          />
-          to
-          <input
-            onChange={onMaxRangeChange}
-            type="number"
-            value={chartOptions.maxRange}
-          />
-          set the chart size
-          <input
-            onChange={onInputChange}
-            type="number"
-            value={chartOptions.chartSize}
-          />
-          <button onClick={onGenerateChartClick}>Generate chart</button>
-        </div>
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          <button
-            onClick={onRandomClick}
-            style={{
-              height: "70%",
-            }}
-          >
-            get all random
-          </button>
-          <button
-            onClick={onResetClick}
-            style={{
-              height: "30%",
-            }}
-          >
-            reset
-          </button>
-        </div>
-        <button
-          style={{ backgroundColor: "#5b507a", width: "200px" }}
-          onClick={onSortClick}
-        >
-          sort
-        </button>
-      </div>
+    <StyledDashboardWrapper>
+      <StyledSettingsBoardWrapper isSettingsOpen={isSettingsOpen}>
+        <SettingsInputs
+          chartOptions={chartOptions}
+          onElementsCountChange={onElementsCountChange}
+          onMaxRangeChange={onMaxRangeChange}
+          onMinRangeChange={onMinRangeChange}
+        />
+        <SettingsButtons
+          onGenerateChartClick={onGenerateChartClick}
+          onRandomClick={onRandomClick}
+          onResetClick={onResetClick}
+        />
+      </StyledSettingsBoardWrapper>
+      <Expander isSettingsOpen={isSettingsOpen} onClick={onExpanderClick} />
       {chartValues && (
-        <div>
-          <BarChart width={500} height={500} data={chartValues}>
-            <Bar dataKey="value" fill="#5b507a" />
-          </BarChart>
-        </div>
+        <StyledChartWrapper>
+          <ResponsiveContainer minWidth={100} minHeight={100}>
+            <BarChart data={chartValues}>
+              <Bar dataKey="value" fill="#5b507a" />
+            </BarChart>
+          </ResponsiveContainer>
+        </StyledChartWrapper>
       )}
-      <StyledDashboardWrapper>
-        <StyledButtonsWrapper>
-          <button>Generate numbers</button>
-        </StyledButtonsWrapper>
-        <StyledChartWrapper>chart</StyledChartWrapper>
-      </StyledDashboardWrapper>
-    </>
+      <ControlsPanel
+        onFrameBack={onFrameBack}
+        onFrameForward={onFrameForward}
+        onSortClick={onSortClick}
+      />
+    </StyledDashboardWrapper>
   );
 };
