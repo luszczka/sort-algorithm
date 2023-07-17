@@ -3,7 +3,7 @@ import { colors, fontSizes, spacing } from "../../theme/theme";
 
 const StyledExpanderWrapper = styled.button<{ isSettingsOpen: boolean }>`
   align-items: center;
-  background: ${(props) => props.theme.colors.main};
+  background: ${(props) => props.theme.colors.main_dark};
   border: none;
   bottom: -32px;
   color: ${(props) => props.theme.colors.white};
@@ -18,6 +18,7 @@ const StyledExpanderWrapper = styled.button<{ isSettingsOpen: boolean }>`
   top: 0;
   transition: top 0.4s ease;
   width: 2rem;
+  z-index: 100;
 
   & span {
     height: 0.5rem;
@@ -44,7 +45,7 @@ const StyledExpanderWrapper = styled.button<{ isSettingsOpen: boolean }>`
   ${({ isSettingsOpen }) =>
     isSettingsOpen &&
     css`
-      top: 286px;
+      top: 285px;
       transition: top 0.4s ease;
 
       & span {

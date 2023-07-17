@@ -12,7 +12,7 @@ const StyledDashboardWrapper = styled.div`
 `;
 
 const StyledSettingsBoardWrapper = styled.div<{ isSettingsOpen: boolean }>`
-  background: ${(props) => props.theme.colors.background};
+  background: ${(props) => props.theme.colors.background_dark};
   border-bottom: 1px solid ${(props) => props.theme.colors.white_20};
   display: flex;
   flex-direction: column;
@@ -49,10 +49,23 @@ const StyledSettingsBoardWrapper = styled.div<{ isSettingsOpen: boolean }>`
 `;
 
 const StyledChartWrapper = styled.div`
-  align-items: "center";
-  display: "flex";
-  width: "100%";
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+
+  /* & path:hover {
+    fill: ${(props) => props.theme.colors.main_second};
+  } */
 `;
+
+StyledChartWrapper.defaultProps = {
+  theme: {
+    colors,
+    fontSizes,
+    spacing,
+  },
+};
 
 StyledDashboardWrapper.defaultProps = {
   theme: {
