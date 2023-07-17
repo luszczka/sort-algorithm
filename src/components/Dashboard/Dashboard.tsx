@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { getRandomNumberInRange } from "../../utils/getRandomNumberInRange";
 import { useQuickSort } from "../../hooks/useQuickSort";
 
@@ -25,28 +25,30 @@ export const Dashboard = () => {
   });
   const [chartValues, setChartValues] = useState<ChartValueType[]>();
   const [isSettingsOpen, setIsSettingsOpen] = useState(true);
+  const data = [7, 2, 4, 1, -5, 9, 6];
+  const [values, setValues] = useState<number[][]>([data]);
 
-  // const [counter, setCounter] = useState(0);
-  // const [runIt, setRunIt] = useState(true);
+  const [counter, setCounter] = useState(0);
 
-  // const callback = (count: number, setCount: any) => {
-  //   if (!chartValues) {
-  //     return;
-  //   }
+  const callback = (count: number, setCount: any) => {
+    if (!values) {
+      return;
+    }
 
-  //   if (count >= chartValues.length) {
-  //     setCounter(0);
-  //     setCount(1);
-  //   } else {
-  //     setCounter(count);
-  //   }
-  //   console.log(count);
-  // };
+    if (count >= values.length) {
+      setCounter(0);
+      setCount(1);
+    } else {
+      setCounter(count);
+    }
 
-  // const delay = runIt ? 1000 : 0;
-  // const limit = chartValues ? chartValues.length - 1 : 0;
+    console.log(count);
+  };
 
-  // useInterval({ callback, delay, limit: limit });
+  const delay = 450;
+  const limit = values ? values.length - 1 : 0;
+
+  const run = useInterval({ callback, delay, limit: limit });
 
   const onExpanderClick = () => {
     setIsSettingsOpen(!isSettingsOpen);
@@ -93,14 +95,14 @@ export const Dashboard = () => {
     setChartValues(getChartValues(defaultValues));
   };
 
-  const data = [7, 2, 4, 1, -5, 9, 6];
   const test = useQuickSort({ array: data });
 
   const onSortClick = () => {
     if (!chartValues) {
       return;
     }
-    console.log(test);
+    setValues(test);
+    console.log(run);
     // setChartValues(quickSort({ unsortedNumbers: chartValues }));
   };
 
@@ -124,9 +126,9 @@ export const Dashboard = () => {
         />
       </StyledSettingsBoardWrapper>
       <Expander isSettingsOpen={isSettingsOpen} onClick={onExpanderClick} />
-      {chartValues && (
+      {values && (
         <StyledChartWrapper>
-          <Chart data={chartValues} isSettingsOpen={isSettingsOpen} />
+          <Chart data={values[counter]} isSettingsOpen={isSettingsOpen} />
         </StyledChartWrapper>
       )}
       <ControlsPanel
