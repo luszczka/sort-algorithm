@@ -32,16 +32,16 @@ const StyledControlsButton = styled.button<{ variant: string }>`
   }
 
   &:hover {
-    background: ${(props) => props.theme.colors.main};
-    border-color: ${(props) => props.theme.colors.main};
+    background: ${(props) => props.theme.colors.main_dark};
+    border-color: ${(props) => props.theme.colors.main_dark};
     color: ${(props) => props.theme.colors.white};
   }
 
   ${({ variant }) =>
     variant === "small" &&
     css`
-      background: ${(props) => props.theme.colors.main};
-      border-color: ${(props) => props.theme.colors.main};
+      background: ${(props) => props.theme.colors.main_dark};
+      border-color: ${(props) => props.theme.colors.main_dark};
       color: ${(props) => props.theme.colors.white};
       font-size: 1rem;
       font-weight: 600;

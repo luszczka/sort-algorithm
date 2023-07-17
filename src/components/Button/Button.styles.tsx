@@ -17,8 +17,8 @@ const StyledButton = styled.button<{ variant: string }>`
   ${({ variant }) =>
     variant === "primary" &&
     css`
-      background: ${(props) => props.theme.colors.main};
-      border-color: ${(props) => props.theme.colors.main};
+      background: ${(props) => props.theme.colors.main_dark};
+      border-color: ${(props) => props.theme.colors.main_dark};
       color: ${(props) => props.theme.colors.white};
       font-weight: 600;
 

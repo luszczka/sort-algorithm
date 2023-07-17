@@ -1,7 +1,7 @@
 import { ChangeEvent, useState } from "react";
 import { getRandomNumberInRange } from "../../utils/getRandomNumberInRange";
 import { quickSort } from "../../utils/quickSort";
-import { BarChart, Bar, ResponsiveContainer } from "recharts";
+import { BarChart, Bar, ResponsiveContainer, Legend, Tooltip } from "recharts";
 
 import {
   StyledChartWrapper,
@@ -50,11 +50,23 @@ export const Dashboard = () => {
   };
 
   const onRandomClick = () => {
+    const randomChartSize = getRandomNumberInRange({ max: 100, min: 1 });
+    const randomMaxRange = getRandomNumberInRange({ max: 100, min: 1 });
+    const randomMinRange = getRandomNumberInRange({ max: 100, min: 1 });
+
     setChartOptions({
-      chartSize: getRandomNumberInRange({ max: 100, min: 1 }),
-      maxRange: getRandomNumberInRange({ max: 100, min: 1 }),
-      minRange: getRandomNumberInRange({ max: 100, min: 1 }),
+      chartSize: randomChartSize,
+      maxRange: randomMaxRange,
+      minRange: randomMinRange,
     });
+
+    setChartValues(
+      getChartValues({
+        chartSize: randomChartSize,
+        maxRange: randomMaxRange,
+        minRange: randomMinRange,
+      })
+    );
   };
 
   const onResetClick = () => {
@@ -91,8 +103,16 @@ export const Dashboard = () => {
       <Expander isSettingsOpen={isSettingsOpen} onClick={onExpanderClick} />
       {chartValues && (
         <StyledChartWrapper>
-          <ResponsiveContainer minWidth={100} minHeight={100}>
-            <BarChart data={chartValues}>
+          <ResponsiveContainer
+            height={isSettingsOpen ? 300 : 600}
+            width={"100%"}
+          >
+            <BarChart
+              // height={isSettingsOpen ? 280 : 600}
+              // width={400}
+              data={chartValues}
+            >
+              <Tooltip />
               <Bar dataKey="value" fill="#5b507a" />
             </BarChart>
           </ResponsiveContainer>

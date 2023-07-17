@@ -49,10 +49,23 @@ const StyledSettingsBoardWrapper = styled.div<{ isSettingsOpen: boolean }>`
 `;
 
 const StyledChartWrapper = styled.div`
-  align-items: "center";
-  display: "flex";
-  width: "100%";
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+
+  /* & path:hover {
+    fill: ${(props) => props.theme.colors.main_second};
+  } */
 `;
+
+StyledChartWrapper.defaultProps = {
+  theme: {
+    colors,
+    fontSizes,
+    spacing,
+  },
+};
 
 StyledDashboardWrapper.defaultProps = {
   theme: {

@@ -1,12 +1,7 @@
-/* :root {
-  --background: "#282c34",
-  --main: "#5b507a",
-  --white: "#bdbdbd",
-} */
-
 const colors = {
-  background: "#282c34",
+  background: "#202030",
   main: "#5b507a",
+  main_dark: "#38304b",
   main_second: "#FED05D",
   white: "#bdbdbd",
   white_20: "#bdbdbd2a",
