@@ -1,3 +1,3 @@
 export const freeze = () => {
-  return new Promise((resolve) => setTimeout(resolve, 50));
+  return new Promise((resolve) => setTimeout(resolve, 500));
 };

@@ -1,32 +1,52 @@
 import { ChangeEvent, useState } from "react";
 import { getRandomNumberInRange } from "../../utils/getRandomNumberInRange";
-import { quickSort } from "../../utils/quickSort";
-import { BarChart, Bar, ResponsiveContainer, Legend, Tooltip } from "recharts";
+import { useQuickSort } from "../../hooks/useQuickSort";
 
 import {
   StyledChartWrapper,
   StyledDashboardWrapper,
   StyledSettingsBoardWrapper,
 } from "./Dashboard.styled";
-import { ChartOptions, ChartValueType } from "../../types/types";
+import { ChartOptions, ChartValueType, Frames } from "../../types/types";
 import { getChartValues } from "../../utils/getChartValues";
 import { SettingsInputs } from "../SettingsInputs/SettingsInputs";
 import { SettingsButtons } from "../SettingsButtons/SettingsButtons";
 import { Expander } from "../Expander/Expander";
 import { ControlsPanel } from "../ControlsPanel/ControlsPanel";
+import { Chart } from "../Chart/Chart";
+import { useInterval } from "../../hooks/useInterval";
 
 export const Dashboard = () => {
   const defaultValues = { chartSize: 20, minRange: 1, maxRange: 100 };
-
   const [chartOptions, setChartOptions] = useState<ChartOptions>({
     chartSize: defaultValues.chartSize,
     minRange: defaultValues.minRange,
     maxRange: defaultValues.maxRange,
   });
-
   const [chartValues, setChartValues] = useState<ChartValueType[]>();
-
   const [isSettingsOpen, setIsSettingsOpen] = useState(true);
+
+  // const [counter, setCounter] = useState(0);
+  // const [runIt, setRunIt] = useState(true);
+
+  // const callback = (count: number, setCount: any) => {
+  //   if (!chartValues) {
+  //     return;
+  //   }
+
+  //   if (count >= chartValues.length) {
+  //     setCounter(0);
+  //     setCount(1);
+  //   } else {
+  //     setCounter(count);
+  //   }
+  //   console.log(count);
+  // };
+
+  // const delay = runIt ? 1000 : 0;
+  // const limit = chartValues ? chartValues.length - 1 : 0;
+
+  // useInterval({ callback, delay, limit: limit });
 
   const onExpanderClick = () => {
     setIsSettingsOpen(!isSettingsOpen);
@@ -46,7 +66,6 @@ export const Dashboard = () => {
 
   const onGenerateChartClick = () => {
     setChartValues(getChartValues(chartOptions));
-    console.log(chartValues);
   };
 
   const onRandomClick = () => {
@@ -74,11 +93,15 @@ export const Dashboard = () => {
     setChartValues(getChartValues(defaultValues));
   };
 
+  const data = [7, 2, 4, 1, -5, 9, 6];
+  const test = useQuickSort({ array: data });
+
   const onSortClick = () => {
     if (!chartValues) {
       return;
     }
-    setChartValues(quickSort({ unsortedNumbers: chartValues }));
+    console.log(test);
+    // setChartValues(quickSort({ unsortedNumbers: chartValues }));
   };
 
   const onFrameBack = () => {};
@@ -103,19 +126,7 @@ export const Dashboard = () => {
       <Expander isSettingsOpen={isSettingsOpen} onClick={onExpanderClick} />
       {chartValues && (
         <StyledChartWrapper>
-          <ResponsiveContainer
-            height={isSettingsOpen ? 300 : 600}
-            width={"100%"}
-          >
-            <BarChart
-              // height={isSettingsOpen ? 280 : 600}
-              // width={400}
-              data={chartValues}
-            >
-              <Tooltip />
-              <Bar dataKey="value" fill="#5b507a" />
-            </BarChart>
-          </ResponsiveContainer>
+          <Chart data={chartValues} isSettingsOpen={isSettingsOpen} />
         </StyledChartWrapper>
       )}
       <ControlsPanel
