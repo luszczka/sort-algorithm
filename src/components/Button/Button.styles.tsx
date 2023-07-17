@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 import { colors, fontSizes, spacing } from "../../theme/theme";
 
 const StyledButton = styled.button<{ variant: string }>`
-  background: ${(props) => props.theme.colors.background};
+  background: ${(props) => props.theme.colors.background_dark};
   border: 1px solid ${(props) => props.theme.colors.white_70};
   color: ${(props) => props.theme.colors.white_70};
   cursor: pointer;

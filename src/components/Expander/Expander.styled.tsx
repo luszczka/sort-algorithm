@@ -45,7 +45,7 @@ const StyledExpanderWrapper = styled.button<{ isSettingsOpen: boolean }>`
   ${({ isSettingsOpen }) =>
     isSettingsOpen &&
     css`
-      top: 286px;
+      top: 285px;
       transition: top 0.4s ease;
 
       & span {

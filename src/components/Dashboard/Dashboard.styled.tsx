@@ -12,7 +12,7 @@ const StyledDashboardWrapper = styled.div`
 `;
 
 const StyledSettingsBoardWrapper = styled.div<{ isSettingsOpen: boolean }>`
-  background: ${(props) => props.theme.colors.background};
+  background: ${(props) => props.theme.colors.background_dark};
   border-bottom: 1px solid ${(props) => props.theme.colors.white_20};
   display: flex;
   flex-direction: column;
