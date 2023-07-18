@@ -25,6 +25,14 @@ const StyledControlsButton = styled.button<{ variant: string }>`
   justify-content: center;
   width: 50px;
 
+  & div {
+    font-size: 1.8rem;
+    font-weight: 600;
+    height: 0.3rem;
+    line-height: 0;
+    width: 1.3rem;
+  }
+
   & span {
     height: 0.5rem;
     line-height: 0;

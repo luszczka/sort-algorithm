@@ -6,6 +6,7 @@ type ChartProps = {
 };
 
 export const Chart = ({ data, isSettingsOpen }: ChartProps) => {
+  console.log("DATA", data);
   return (
     <ResponsiveContainer height={isSettingsOpen ? 300 : 600} width={"100%"}>
       <BarChart data={data}>

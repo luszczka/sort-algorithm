@@ -30,14 +30,20 @@ export const Dashboard = () => {
 
   const [counter, setCounter] = useState(0);
 
+  const [isSorting, setIsSorting] = useState(false);
+
   useEffect(() => {
-    if (values && counter < values.length - 1) {
+    if (values && counter < values.length - 1 && isSorting) {
       const interval = window.setInterval(() => {
         setCounter((counter) => counter + 1);
+        console.log("Counter", counter);
       }, 300);
       return () => window.clearInterval(interval);
     }
-  }, [values, counter]);
+    if (counter === values.length - 1) {
+      setIsSorting(false);
+    }
+  }, [values, counter, isSorting]);
 
   const onExpanderClick = () => {
     setIsSettingsOpen(!isSettingsOpen);
@@ -60,6 +66,7 @@ export const Dashboard = () => {
     setChartValues(temp);
     setValues([]);
     setCounter(0);
+    setIsSorting(false);
   };
 
   const onRandomClick = () => {
@@ -80,6 +87,7 @@ export const Dashboard = () => {
     setChartValues(temp);
     setValues([]);
     setCounter(0);
+    setIsSorting(false);
   };
 
   const onResetClick = () => {
@@ -88,6 +96,7 @@ export const Dashboard = () => {
     setChartValues(temp);
     setValues([]);
     setCounter(0);
+    setIsSorting(false);
   };
 
   const { frames, quickSort } = useQuickSort({ array: chartValues ?? [] });
@@ -96,7 +105,13 @@ export const Dashboard = () => {
     if (!chartValues) {
       return;
     }
-    quickSort(chartValues);
+    setIsSorting(!isSorting);
+    if (!isSorting && values.length < 1) {
+      quickSort(chartValues);
+    }
+    if (!isSorting && values.length > 0) {
+      quickSort(values[counter]);
+    }
   };
 
   const onFrameBack = () => {};
@@ -127,14 +142,6 @@ export const Dashboard = () => {
         />
       </StyledSettingsBoardWrapper>
       <Expander isSettingsOpen={isSettingsOpen} onClick={onExpanderClick} />
-      {/* {chartValues && chartValues?.length > 0 && (
-        <StyledChartWrapper>
-          <Chart
-            data={values[counter] ?? chartValues}
-            isSettingsOpen={isSettingsOpen}
-          />
-        </StyledChartWrapper>
-      )} */}
       {chartValues && chartValues?.length > 0 && values.length < 1 && (
         <StyledChartWrapper>
           <Chart data={chartValues} isSettingsOpen={isSettingsOpen} />
@@ -146,6 +153,7 @@ export const Dashboard = () => {
         </StyledChartWrapper>
       )}
       <ControlsPanel
+        isSorting={isSorting}
         onFrameBack={onFrameBack}
         onFrameForward={onFrameForward}
         onSortClick={onSortClick}
