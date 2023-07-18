@@ -1,9 +1,7 @@
 import { ChangeEvent, useEffect, useState } from "react";
-import { getRandomNumberInRange } from "../../utils/getRandomNumberInRange";
 import { useQuickSort } from "../../hooks/useQuickSort";
 
 import {
-  StyledChartWrapper,
   StyledDashboardWrapper,
   StyledSettingsBoardWrapper,
 } from "./Dashboard.styled";
@@ -12,31 +10,29 @@ import { getChartValues } from "../../utils/getChartValues";
 import { SettingsInputs } from "../SettingsInputs/SettingsInputs";
 import { SettingsButtons } from "../SettingsButtons/SettingsButtons";
 import { Expander } from "../Expander/Expander";
-import { ControlsPanel } from "../ControlsPanel/ControlsPanel";
 import { Chart } from "../Chart/Chart";
+import { generateChart, generateRandomChart } from "../../utils/generateChart";
 
 export const Dashboard = () => {
-  const defaultValues = { chartSize: 5, minRange: 1, maxRange: 100 };
+  const defaultValues = { chartSize: 10, minRange: 1, maxRange: 100 };
   const [chartOptions, setChartOptions] = useState<ChartOptions>({
     chartSize: defaultValues.chartSize,
     minRange: defaultValues.minRange,
     maxRange: defaultValues.maxRange,
   });
-
   const [chartValues, setChartValues] = useState<number[]>();
   const [isSettingsOpen, setIsSettingsOpen] = useState(true);
-
   const [values, setValues] = useState<number[][]>([]);
-
   const [counter, setCounter] = useState(0);
-
   const [isSorting, setIsSorting] = useState(false);
 
+  const { frames, quickSort } = useQuickSort({ array: chartValues ?? [] });
+
   useEffect(() => {
+    console.log(counter, values.length);
     if (values && counter < values.length - 1 && isSorting) {
       const interval = window.setInterval(() => {
         setCounter((counter) => counter + 1);
-        console.log("Counter", counter);
       }, 300);
       return () => window.clearInterval(interval);
     }
@@ -52,54 +48,41 @@ export const Dashboard = () => {
   const onMaxRangeChange = (event: ChangeEvent<HTMLInputElement>) => {
     setChartOptions({ ...chartOptions, maxRange: +event.target.value });
   };
-
   const onMinRangeChange = (event: ChangeEvent<HTMLInputElement>) => {
     setChartOptions({ ...chartOptions, minRange: +event.target.value });
   };
-
   const onElementsCountChange = (event: ChangeEvent<HTMLInputElement>) => {
     setChartOptions({ ...chartOptions, chartSize: +event.target.value });
   };
 
   const onGenerateChartClick = () => {
-    const temp = getChartValues(chartOptions);
-    setChartValues(temp);
-    setValues([]);
-    setCounter(0);
-    setIsSorting(false);
+    generateChart({
+      chartValues: getChartValues(chartOptions),
+      setChartValues,
+      setCounter,
+      setIsSorting,
+      setValues,
+    });
   };
-
   const onRandomClick = () => {
-    const randomChartSize = getRandomNumberInRange({ max: 100, min: 1 });
-    const randomMaxRange = getRandomNumberInRange({ max: 100, min: 1 });
-    const randomMinRange = getRandomNumberInRange({ max: 100, min: 1 });
-
-    setChartOptions({
-      chartSize: randomChartSize,
-      maxRange: randomMaxRange,
-      minRange: randomMinRange,
+    generateRandomChart({
+      setChartOptions,
+      setChartValues,
+      setCounter,
+      setIsSorting,
+      setValues,
     });
-    const temp = getChartValues({
-      chartSize: randomChartSize,
-      maxRange: randomMaxRange,
-      minRange: randomMinRange,
-    });
-    setChartValues(temp);
-    setValues([]);
-    setCounter(0);
-    setIsSorting(false);
   };
-
   const onResetClick = () => {
-    const temp = getChartValues(defaultValues);
     setChartOptions(defaultValues);
-    setChartValues(temp);
-    setValues([]);
-    setCounter(0);
-    setIsSorting(false);
+    generateChart({
+      chartValues: getChartValues(defaultValues),
+      setChartValues,
+      setCounter,
+      setIsSorting,
+      setValues,
+    });
   };
-
-  const { frames, quickSort } = useQuickSort({ array: chartValues ?? [] });
 
   const onSortClick = () => {
     if (!chartValues) {
@@ -114,17 +97,15 @@ export const Dashboard = () => {
     }
   };
 
-  const onFrameBack = () => {};
-
-  const onFrameForward = () => {};
-
   useEffect(() => {
+    if (!chartValues) return;
     setValues(frames);
   }, [frames]);
 
-  useEffect(() => {
-    setValues([]);
-  }, [chartValues]);
+  const displayData =
+    values.length < 1 && chartValues && chartValues?.length > 0
+      ? [chartValues]
+      : values;
 
   return (
     <StyledDashboardWrapper>
@@ -142,22 +123,15 @@ export const Dashboard = () => {
         />
       </StyledSettingsBoardWrapper>
       <Expander isSettingsOpen={isSettingsOpen} onClick={onExpanderClick} />
-      {chartValues && chartValues?.length > 0 && values.length < 1 && (
-        <StyledChartWrapper>
-          <Chart data={chartValues} isSettingsOpen={isSettingsOpen} />
-        </StyledChartWrapper>
+      {displayData.length > 0 && (
+        <Chart
+          count={displayData.length - counter}
+          data={displayData[counter]}
+          isSettingsOpen={isSettingsOpen}
+          isSorting={isSorting}
+          onSortClick={onSortClick}
+        />
       )}
-      {values.length > 0 && (
-        <StyledChartWrapper>
-          <Chart data={values[counter]} isSettingsOpen={isSettingsOpen} />
-        </StyledChartWrapper>
-      )}
-      <ControlsPanel
-        isSorting={isSorting}
-        onFrameBack={onFrameBack}
-        onFrameForward={onFrameForward}
-        onSortClick={onSortClick}
-      />
     </StyledDashboardWrapper>
   );
 };

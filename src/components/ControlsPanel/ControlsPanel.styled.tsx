@@ -3,12 +3,10 @@ import { colors, fontSizes, spacing } from "../../theme/theme";
 
 const StyledControlsPanelWrapper = styled.div`
   align-items: center;
-  bottom: 0;
+  bottom: 20px;
   display: flex;
   gap: 0.5rem;
   justify-content: center;
-  left: calc(50vw - 90px);
-  padding: 0 2rem 2rem;
   position: fixed;
 `;
 
