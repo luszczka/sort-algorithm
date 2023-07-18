@@ -7,7 +7,7 @@ import {
   StyledDashboardWrapper,
   StyledSettingsBoardWrapper,
 } from "./Dashboard.styled";
-import { ChartOptions, ChartValueType, Frames } from "../../types/types";
+import { ChartOptions } from "../../types/types";
 import { getChartValues } from "../../utils/getChartValues";
 import { SettingsInputs } from "../SettingsInputs/SettingsInputs";
 import { SettingsButtons } from "../SettingsButtons/SettingsButtons";
@@ -17,16 +17,17 @@ import { Chart } from "../Chart/Chart";
 import { useInterval } from "../../hooks/useInterval";
 
 export const Dashboard = () => {
-  const defaultValues = { chartSize: 20, minRange: 1, maxRange: 100 };
+  const defaultValues = { chartSize: 5, minRange: 1, maxRange: 100 };
   const [chartOptions, setChartOptions] = useState<ChartOptions>({
     chartSize: defaultValues.chartSize,
     minRange: defaultValues.minRange,
     maxRange: defaultValues.maxRange,
   });
-  const [chartValues, setChartValues] = useState<ChartValueType[]>();
+
+  const [chartValues, setChartValues] = useState<number[]>();
   const [isSettingsOpen, setIsSettingsOpen] = useState(true);
-  const data = [7, 2, 4, 1, -5, 9, 6];
-  const [values, setValues] = useState<number[][]>([data]);
+
+  const [values, setValues] = useState<number[][]>([]);
 
   const [counter, setCounter] = useState(0);
 
@@ -41,14 +42,13 @@ export const Dashboard = () => {
     } else {
       setCounter(count);
     }
-
-    console.log(count);
+    console.log(counter);
   };
 
-  const delay = 450;
+  const delay = 30;
   const limit = values ? values.length - 1 : 0;
 
-  const run = useInterval({ callback, delay, limit: limit });
+  const interval = useInterval({ callback, delay, limit: limit });
 
   const onExpanderClick = () => {
     setIsSettingsOpen(!isSettingsOpen);
@@ -67,7 +67,10 @@ export const Dashboard = () => {
   };
 
   const onGenerateChartClick = () => {
-    setChartValues(getChartValues(chartOptions));
+    const temp = getChartValues(chartOptions);
+    setChartValues(temp);
+    setValues([]);
+    setCounter(0);
   };
 
   const onRandomClick = () => {
@@ -80,35 +83,46 @@ export const Dashboard = () => {
       maxRange: randomMaxRange,
       minRange: randomMinRange,
     });
-
-    setChartValues(
-      getChartValues({
-        chartSize: randomChartSize,
-        maxRange: randomMaxRange,
-        minRange: randomMinRange,
-      })
-    );
+    const temp = getChartValues({
+      chartSize: randomChartSize,
+      maxRange: randomMaxRange,
+      minRange: randomMinRange,
+    });
+    setChartValues(temp);
+    setValues([]);
+    setCounter(0);
+    console.log(chartValues, "ChartValues");
+    console.log(values, "values");
   };
 
   const onResetClick = () => {
+    const temp = getChartValues(defaultValues);
     setChartOptions(defaultValues);
-    setChartValues(getChartValues(defaultValues));
+    setChartValues(temp);
+    setValues([]);
+    setCounter(0);
   };
 
-  const test = useQuickSort({ array: data });
+  const sort = useQuickSort({ array: chartValues ?? [] });
 
   const onSortClick = () => {
     if (!chartValues) {
       return;
     }
-    setValues(test);
-    console.log(run);
-    // setChartValues(quickSort({ unsortedNumbers: chartValues }));
+    sort.quickSort(chartValues);
   };
 
   const onFrameBack = () => {};
 
   const onFrameForward = () => {};
+
+  useEffect(() => {
+    setValues(sort.result);
+  }, [sort.result]);
+
+  useEffect(() => {
+    setValues([]);
+  }, [chartValues]);
 
   return (
     <StyledDashboardWrapper>
@@ -126,7 +140,20 @@ export const Dashboard = () => {
         />
       </StyledSettingsBoardWrapper>
       <Expander isSettingsOpen={isSettingsOpen} onClick={onExpanderClick} />
-      {values && (
+      {/* {chartValues && chartValues?.length > 0 && (
+        <StyledChartWrapper>
+          <Chart
+            data={values[counter] ?? chartValues}
+            isSettingsOpen={isSettingsOpen}
+          />
+        </StyledChartWrapper>
+      )} */}
+      {chartValues && chartValues?.length > 0 && values.length < 1 && (
+        <StyledChartWrapper>
+          <Chart data={chartValues} isSettingsOpen={isSettingsOpen} />
+        </StyledChartWrapper>
+      )}
+      {values.length > 0 && (
         <StyledChartWrapper>
           <Chart data={values[counter]} isSettingsOpen={isSettingsOpen} />
         </StyledChartWrapper>

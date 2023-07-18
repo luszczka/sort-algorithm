@@ -30,5 +30,5 @@ export const useInterval = ({ callback, delay, limit }: UseIntervalProps) => {
     }
   }, [delay, count, limit]);
 
-  return intervalRef;
+  return { intervalRef };
 };

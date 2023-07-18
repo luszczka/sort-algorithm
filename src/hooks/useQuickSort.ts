@@ -9,6 +9,7 @@ type QuckSortTypes = {
 export const useQuickSort = ({ array }: QuckSortTypes) => {
   const [frames, setFrames] = useState<number[][]>([]);
   const [pivots, setPivots] = useState<number[]>([]);
+
   // const [frames, setFrames] = useState({
   //   current: [],
   //   pivotIndex: number
@@ -33,6 +34,7 @@ export const useQuickSort = ({ array }: QuckSortTypes) => {
     const temp = [...array];
     setFrames((previous) => [...previous, temp]);
     setPivots((previous) => [...previous, pivotIndex]);
+
     return pivotIndex;
   };
 
@@ -45,6 +47,7 @@ export const useQuickSort = ({ array }: QuckSortTypes) => {
   };
 
   const quickSort = (array: number[]) => {
+    setFrames([]);
     sort(array, 0, array.length - 1);
   };
 
@@ -54,11 +57,5 @@ export const useQuickSort = ({ array }: QuckSortTypes) => {
 
   // console.log(pivots, "pivots");
 
-  const result = frames.map((frame, index) => {
-    const currentPivot = pivots[index];
-
-    return frame;
-  });
-
-  return result;
+  return { result: frames, quickSort };
 };
