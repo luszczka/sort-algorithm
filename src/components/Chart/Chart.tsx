@@ -1,4 +1,3 @@
-import { ChartValueType } from "../../types/types";
 import { BarChart, Bar, ResponsiveContainer, Tooltip } from "recharts";
 
 type ChartProps = {

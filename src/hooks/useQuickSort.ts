@@ -57,5 +57,5 @@ export const useQuickSort = ({ array }: QuckSortTypes) => {
 
   // console.log(pivots, "pivots");
 
-  return { result: frames, quickSort };
+  return { frames, quickSort };
 };

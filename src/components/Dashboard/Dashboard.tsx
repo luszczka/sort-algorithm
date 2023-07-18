@@ -14,7 +14,6 @@ import { SettingsButtons } from "../SettingsButtons/SettingsButtons";
 import { Expander } from "../Expander/Expander";
 import { ControlsPanel } from "../ControlsPanel/ControlsPanel";
 import { Chart } from "../Chart/Chart";
-import { useInterval } from "../../hooks/useInterval";
 
 export const Dashboard = () => {
   const defaultValues = { chartSize: 5, minRange: 1, maxRange: 100 };
@@ -31,24 +30,14 @@ export const Dashboard = () => {
 
   const [counter, setCounter] = useState(0);
 
-  const callback = (count: number, setCount: any) => {
-    if (!values) {
-      return;
+  useEffect(() => {
+    if (values && counter < values.length - 1) {
+      const interval = window.setInterval(() => {
+        setCounter((counter) => counter + 1);
+      }, 300);
+      return () => window.clearInterval(interval);
     }
-
-    if (count >= values.length) {
-      setCounter(0);
-      setCount(1);
-    } else {
-      setCounter(count);
-    }
-    console.log(counter);
-  };
-
-  const delay = 30;
-  const limit = values ? values.length - 1 : 0;
-
-  const interval = useInterval({ callback, delay, limit: limit });
+  }, [values, counter]);
 
   const onExpanderClick = () => {
     setIsSettingsOpen(!isSettingsOpen);
@@ -91,8 +80,6 @@ export const Dashboard = () => {
     setChartValues(temp);
     setValues([]);
     setCounter(0);
-    console.log(chartValues, "ChartValues");
-    console.log(values, "values");
   };
 
   const onResetClick = () => {
@@ -103,13 +90,13 @@ export const Dashboard = () => {
     setCounter(0);
   };
 
-  const sort = useQuickSort({ array: chartValues ?? [] });
+  const { frames, quickSort } = useQuickSort({ array: chartValues ?? [] });
 
   const onSortClick = () => {
     if (!chartValues) {
       return;
     }
-    sort.quickSort(chartValues);
+    quickSort(chartValues);
   };
 
   const onFrameBack = () => {};
@@ -117,8 +104,8 @@ export const Dashboard = () => {
   const onFrameForward = () => {};
 
   useEffect(() => {
-    setValues(sort.result);
-  }, [sort.result]);
+    setValues(frames);
+  }, [frames]);
 
   useEffect(() => {
     setValues([]);
