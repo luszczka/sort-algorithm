@@ -4,6 +4,7 @@ const colors = {
   main: "#5b507a",
   main_dark: "#38304b",
   main_second: "#FED05D",
+  whitest: "#fff",
   white: "#bdbdbd",
   white_20: "#bdbdbd2a",
   white_70: "#bdbdbd70",

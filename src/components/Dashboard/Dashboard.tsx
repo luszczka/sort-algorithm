@@ -26,7 +26,9 @@ export const Dashboard = () => {
   const [counter, setCounter] = useState(0);
   const [isSorting, setIsSorting] = useState(false);
 
-  const { frames, quickSort } = useQuickSort({ array: chartValues ?? [] });
+  const { frames, quickSort, pivots } = useQuickSort({
+    array: chartValues ?? [],
+  });
 
   useEffect(() => {
     if (values && counter < values.length - 1 && isSorting) {
@@ -124,11 +126,13 @@ export const Dashboard = () => {
       <Expander isSettingsOpen={isSettingsOpen} onClick={onExpanderClick} />
       {displayData.length > 0 && (
         <Chart
-          count={displayData.length - counter}
+          count={counter}
+          dataLength={displayData.length}
           data={displayData[counter]}
           isSettingsOpen={isSettingsOpen}
           isSorting={isSorting}
           onSortClick={onSortClick}
+          pivots={pivots}
         />
       )}
     </StyledDashboardWrapper>
