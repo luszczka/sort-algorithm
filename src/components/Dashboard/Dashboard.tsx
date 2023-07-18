@@ -29,14 +29,13 @@ export const Dashboard = () => {
   const { frames, quickSort } = useQuickSort({ array: chartValues ?? [] });
 
   useEffect(() => {
-    console.log(counter, values.length);
     if (values && counter < values.length - 1 && isSorting) {
       const interval = window.setInterval(() => {
         setCounter((counter) => counter + 1);
       }, 300);
       return () => window.clearInterval(interval);
     }
-    if (counter === values.length - 1) {
+    if (counter > 0 && counter === values.length - 1) {
       setIsSorting(false);
     }
   }, [values, counter, isSorting]);

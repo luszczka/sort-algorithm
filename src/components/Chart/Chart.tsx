@@ -30,7 +30,7 @@ export const Chart = ({
       </StyledChartWrapper>
       <ControlsPanel isSorting={isSorting} onSortClick={onSortClick} />
       <StyledCounterWrapper>
-        <RemainingStepsCounter count={count} isSorting={isSorting} />
+        <RemainingStepsCounter count={count} />
       </StyledCounterWrapper>
     </>
   );
