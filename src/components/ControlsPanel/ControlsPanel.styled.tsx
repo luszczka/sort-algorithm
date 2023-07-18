@@ -3,12 +3,10 @@ import { colors, fontSizes, spacing } from "../../theme/theme";
 
 const StyledControlsPanelWrapper = styled.div`
   align-items: center;
-  bottom: 0;
+  bottom: 20px;
   display: flex;
   gap: 0.5rem;
   justify-content: center;
-  left: calc(50vw - 90px);
-  padding: 0 2rem 2rem;
   position: fixed;
 `;
 
@@ -24,6 +22,14 @@ const StyledControlsButton = styled.button<{ variant: string }>`
   height: 50px;
   justify-content: center;
   width: 50px;
+
+  & div {
+    font-size: 1.8rem;
+    font-weight: 600;
+    height: 0.3rem;
+    line-height: 0;
+    width: 1.3rem;
+  }
 
   & span {
     height: 0.5rem;

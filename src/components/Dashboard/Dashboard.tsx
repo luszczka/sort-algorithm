@@ -1,32 +1,44 @@
-import { ChangeEvent, useState } from "react";
-import { getRandomNumberInRange } from "../../utils/getRandomNumberInRange";
-import { quickSort } from "../../utils/quickSort";
-import { BarChart, Bar, ResponsiveContainer, Legend, Tooltip } from "recharts";
+import { ChangeEvent, useEffect, useState } from "react";
+import { useQuickSort } from "../../hooks/useQuickSort";
 
 import {
-  StyledChartWrapper,
   StyledDashboardWrapper,
   StyledSettingsBoardWrapper,
 } from "./Dashboard.styled";
-import { ChartOptions, ChartValueType } from "../../types/types";
+import { ChartOptions } from "../../types/types";
 import { getChartValues } from "../../utils/getChartValues";
 import { SettingsInputs } from "../SettingsInputs/SettingsInputs";
 import { SettingsButtons } from "../SettingsButtons/SettingsButtons";
 import { Expander } from "../Expander/Expander";
-import { ControlsPanel } from "../ControlsPanel/ControlsPanel";
+import { Chart } from "../Chart/Chart";
+import { generateChart, generateRandomChart } from "../../utils/generateChart";
 
 export const Dashboard = () => {
-  const defaultValues = { chartSize: 20, minRange: 1, maxRange: 100 };
-
+  const defaultValues = { chartSize: 10, minRange: 1, maxRange: 100 };
   const [chartOptions, setChartOptions] = useState<ChartOptions>({
     chartSize: defaultValues.chartSize,
     minRange: defaultValues.minRange,
     maxRange: defaultValues.maxRange,
   });
-
-  const [chartValues, setChartValues] = useState<ChartValueType[]>();
-
+  const [chartValues, setChartValues] = useState<number[]>();
   const [isSettingsOpen, setIsSettingsOpen] = useState(true);
+  const [values, setValues] = useState<number[][]>([]);
+  const [counter, setCounter] = useState(0);
+  const [isSorting, setIsSorting] = useState(false);
+
+  const { frames, quickSort } = useQuickSort({ array: chartValues ?? [] });
+
+  useEffect(() => {
+    if (values && counter < values.length - 1 && isSorting) {
+      const interval = window.setInterval(() => {
+        setCounter((counter) => counter + 1);
+      }, 300);
+      return () => window.clearInterval(interval);
+    }
+    if (counter > 0 && counter === values.length - 1) {
+      setIsSorting(false);
+    }
+  }, [values, counter, isSorting]);
 
   const onExpanderClick = () => {
     setIsSettingsOpen(!isSettingsOpen);
@@ -35,55 +47,64 @@ export const Dashboard = () => {
   const onMaxRangeChange = (event: ChangeEvent<HTMLInputElement>) => {
     setChartOptions({ ...chartOptions, maxRange: +event.target.value });
   };
-
   const onMinRangeChange = (event: ChangeEvent<HTMLInputElement>) => {
     setChartOptions({ ...chartOptions, minRange: +event.target.value });
   };
-
   const onElementsCountChange = (event: ChangeEvent<HTMLInputElement>) => {
     setChartOptions({ ...chartOptions, chartSize: +event.target.value });
   };
 
   const onGenerateChartClick = () => {
-    setChartValues(getChartValues(chartOptions));
-    console.log(chartValues);
-  };
-
-  const onRandomClick = () => {
-    const randomChartSize = getRandomNumberInRange({ max: 100, min: 1 });
-    const randomMaxRange = getRandomNumberInRange({ max: 100, min: 1 });
-    const randomMinRange = getRandomNumberInRange({ max: 100, min: 1 });
-
-    setChartOptions({
-      chartSize: randomChartSize,
-      maxRange: randomMaxRange,
-      minRange: randomMinRange,
+    generateChart({
+      chartValues: getChartValues(chartOptions),
+      setChartValues,
+      setCounter,
+      setIsSorting,
+      setValues,
     });
-
-    setChartValues(
-      getChartValues({
-        chartSize: randomChartSize,
-        maxRange: randomMaxRange,
-        minRange: randomMinRange,
-      })
-    );
   };
-
+  const onRandomClick = () => {
+    generateRandomChart({
+      setChartOptions,
+      setChartValues,
+      setCounter,
+      setIsSorting,
+      setValues,
+    });
+  };
   const onResetClick = () => {
     setChartOptions(defaultValues);
-    setChartValues(getChartValues(defaultValues));
+    generateChart({
+      chartValues: getChartValues(defaultValues),
+      setChartValues,
+      setCounter,
+      setIsSorting,
+      setValues,
+    });
   };
 
   const onSortClick = () => {
     if (!chartValues) {
       return;
     }
-    setChartValues(quickSort({ unsortedNumbers: chartValues }));
+    setIsSorting(!isSorting);
+    if (!isSorting && values.length < 1) {
+      quickSort(chartValues);
+    }
+    if (!isSorting && values.length > 0) {
+      quickSort(values[counter]);
+    }
   };
 
-  const onFrameBack = () => {};
+  useEffect(() => {
+    if (!chartValues) return;
+    setValues(frames);
+  }, [frames]);
 
-  const onFrameForward = () => {};
+  const displayData =
+    values.length < 1 && chartValues && chartValues?.length > 0
+      ? [chartValues]
+      : values;
 
   return (
     <StyledDashboardWrapper>
@@ -101,28 +122,15 @@ export const Dashboard = () => {
         />
       </StyledSettingsBoardWrapper>
       <Expander isSettingsOpen={isSettingsOpen} onClick={onExpanderClick} />
-      {chartValues && (
-        <StyledChartWrapper>
-          <ResponsiveContainer
-            height={isSettingsOpen ? 300 : 600}
-            width={"100%"}
-          >
-            <BarChart
-              // height={isSettingsOpen ? 280 : 600}
-              // width={400}
-              data={chartValues}
-            >
-              <Tooltip />
-              <Bar dataKey="value" fill="#5b507a" />
-            </BarChart>
-          </ResponsiveContainer>
-        </StyledChartWrapper>
+      {displayData.length > 0 && (
+        <Chart
+          count={displayData.length - counter}
+          data={displayData[counter]}
+          isSettingsOpen={isSettingsOpen}
+          isSorting={isSorting}
+          onSortClick={onSortClick}
+        />
       )}
-      <ControlsPanel
-        onFrameBack={onFrameBack}
-        onFrameForward={onFrameForward}
-        onSortClick={onSortClick}
-      />
     </StyledDashboardWrapper>
   );
 };

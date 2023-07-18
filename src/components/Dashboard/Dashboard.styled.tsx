@@ -7,7 +7,7 @@ const StyledDashboardWrapper = styled.div`
   flex-direction: column;
   height: 100vh;
   justify-content: flex-end;
-  padding-bottom: 100px;
+  padding-bottom: 20px;
   position: relative;
 `;
 
@@ -48,25 +48,6 @@ const StyledSettingsBoardWrapper = styled.div<{ isSettingsOpen: boolean }>`
     `};
 `;
 
-const StyledChartWrapper = styled.div`
-  align-items: center;
-  display: flex;
-  justify-content: center;
-  width: 100%;
-
-  /* & path:hover {
-    fill: ${(props) => props.theme.colors.main_second};
-  } */
-`;
-
-StyledChartWrapper.defaultProps = {
-  theme: {
-    colors,
-    fontSizes,
-    spacing,
-  },
-};
-
 StyledDashboardWrapper.defaultProps = {
   theme: {
     colors,
@@ -83,8 +64,4 @@ StyledSettingsBoardWrapper.defaultProps = {
   },
 };
 
-export {
-  StyledDashboardWrapper,
-  StyledSettingsBoardWrapper,
-  StyledChartWrapper,
-};
+export { StyledDashboardWrapper, StyledSettingsBoardWrapper };

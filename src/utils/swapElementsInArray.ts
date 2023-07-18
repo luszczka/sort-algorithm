@@ -1,8 +1,5 @@
-import { ChartValueType } from "../types/types";
-import { freeze } from "./freeze";
-
 type SwapElementsInArrayTypes = {
-  array: ChartValueType[];
+  array: number[];
   a: number;
   b: number;
 };
@@ -12,9 +9,12 @@ export const swapElementsInArray = async ({
   a,
   b,
 }: SwapElementsInArrayTypes) => {
-  await freeze();
+  if (array[a] === undefined || array[b] === undefined) {
+    throw new Error("Parameter is out of scope");
+  }
 
   let temp = array[a];
   array[a] = array[b];
   array[b] = temp;
+  return array;
 };

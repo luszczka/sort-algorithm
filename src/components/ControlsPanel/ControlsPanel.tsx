@@ -4,26 +4,18 @@ import {
 } from "./ControlsPanel.styled";
 
 type ControlsPanelProps = {
-  onFrameBack: () => void;
-  onFrameForward: () => void;
+  isSorting?: boolean;
   onSortClick: () => void;
 };
 
 export const ControlsPanel = ({
-  onFrameBack,
+  isSorting,
   onSortClick,
-  onFrameForward,
 }: ControlsPanelProps) => {
   return (
     <StyledControlsPanelWrapper>
-      <StyledControlsButton variant="small" onClick={onFrameBack}>
-        |<span>&lsaquo;</span>
-      </StyledControlsButton>
       <StyledControlsButton variant="big" onClick={onSortClick}>
-        <span>&rsaquo;</span>
-      </StyledControlsButton>
-      <StyledControlsButton variant="small" onClick={onFrameForward}>
-        <span>&rsaquo;</span>|
+        {isSorting ? <div>||</div> : <span>&rsaquo;</span>}
       </StyledControlsButton>
     </StyledControlsPanelWrapper>
   );

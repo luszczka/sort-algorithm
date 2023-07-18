@@ -6,11 +6,9 @@ export const getChartValues = ({
   maxRange,
   minRange,
 }: ChartOptions) => {
-  const result = Array.from({ length: chartSize }, (_value, index) => {
-    return {
-      id: index,
-      value: getRandomNumberInRange({ max: maxRange, min: minRange }),
-    };
+  const result = Array.from({ length: chartSize }, () => {
+    return getRandomNumberInRange({ max: maxRange, min: minRange });
   });
+
   return result;
 };
