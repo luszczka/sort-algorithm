@@ -1,12 +1,11 @@
 import { css, styled } from "styled-components";
-import { colors, fontSizes, spacing } from "../../theme/theme";
 
 const StyledExpanderWrapper = styled.button<{ isSettingsOpen: boolean }>`
   align-items: center;
-  background: ${(props) => props.theme.colors.main_dark};
+  background: ${({ theme }) => theme.colors.main_dark};
   border: none;
   bottom: -32px;
-  color: ${(props) => props.theme.colors.white};
+  color: ${({ theme }) => theme.colors.white};
   cursor: pointer;
   display: flex;
   flex-wrap: wrap;
@@ -28,8 +27,8 @@ const StyledExpanderWrapper = styled.button<{ isSettingsOpen: boolean }>`
   }
 
   &:hover {
-    background: ${(props) => props.theme.colors.main_second};
-    color: ${(props) => props.theme.colors.background};
+    background: ${({ theme }) => theme.colors.main_second};
+    color: ${({ theme }) => theme.colors.background};
   }
 
   @media (min-width: 768px) {
@@ -67,13 +66,5 @@ const StyledExpanderWrapper = styled.button<{ isSettingsOpen: boolean }>`
       }
     `};
 `;
-
-StyledExpanderWrapper.defaultProps = {
-  theme: {
-    colors,
-    fontSizes,
-    spacing,
-  },
-};
 
 export { StyledExpanderWrapper };

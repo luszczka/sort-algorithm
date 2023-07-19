@@ -1,9 +1,8 @@
 import styled from "styled-components";
-import { colors, fontSizes, spacing } from "../../theme/theme";
 
 const StyledControlsPanelWrapper = styled.div`
   align-items: center;
-  background: ${(props) => props.theme.colors.background_opacity};
+  background: ${({ theme }) => theme.colors.background_opacity};
   bottom: 0;
   display: flex;
   flex-direction: column;
@@ -22,10 +21,10 @@ const StyledControlsButtonWrapper = styled.div`
 
 const StyledControlsButton = styled.button<{ variant: string }>`
   align-items: center;
-  background: ${(props) => props.theme.colors.main_second};
-  border: 1px solid ${(props) => props.theme.colors.main_second};
+  background: ${({ theme }) => theme.colors.main_second};
+  border: 1px solid ${({ theme }) => theme.colors.main_second};
   border-radius: 50%;
-  color: ${(props) => props.theme.colors.background};
+  color: ${({ theme }) => theme.colors.background};
   cursor: pointer;
   display: flex;
   font-size: 3rem;
@@ -49,27 +48,11 @@ const StyledControlsButton = styled.button<{ variant: string }>`
   }
 
   &:hover {
-    background: ${(props) => props.theme.colors.main_dark};
-    border-color: ${(props) => props.theme.colors.main_dark};
-    color: ${(props) => props.theme.colors.white};
+    background: ${({ theme }) => theme.colors.main_dark};
+    border-color: ${({ theme }) => theme.colors.main_dark};
+    color: ${({ theme }) => theme.colors.white};
   }
 `;
-
-StyledControlsPanelWrapper.defaultProps = {
-  theme: {
-    colors,
-    fontSizes,
-    spacing,
-  },
-};
-
-StyledControlsButton.defaultProps = {
-  theme: {
-    colors,
-    fontSizes,
-    spacing,
-  },
-};
 
 export {
   StyledControlsPanelWrapper,

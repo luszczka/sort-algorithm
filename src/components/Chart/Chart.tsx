@@ -2,6 +2,7 @@ import { BarChart, Bar, ResponsiveContainer } from "recharts";
 import { StyledChartWrapper, StyledTooltip } from "./Chart.styled";
 import { ControlsPanel } from "../ControlsPanel/ControlsPanel";
 import { useState } from "react";
+import { ChartBarEvent } from "../../types/types";
 
 type ChartProps = {
   count: number;
@@ -31,7 +32,7 @@ export const Chart = ({
   const pivotReference =
     isSorting && pivots.length > 0 ? pivots[count].i : undefined;
 
-  const onMouseEnter = (event: any) => {
+  const onMouseEnter = (event: ChartBarEvent) => {
     setDataElementHeight(event.value);
     setDataElementOffset(event.background.x);
   };

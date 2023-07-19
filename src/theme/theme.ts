@@ -27,4 +27,4 @@ export type ColorTypes = typeof colors;
 export type FontSizesTypes = typeof fontSizes;
 export type SpacingTypes = typeof spacing;
 
-export { colors, fontSizes, spacing };
+export default { colors, fontSizes, spacing };

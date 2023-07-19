@@ -1,5 +1,4 @@
 import styled, { css } from "styled-components";
-import { colors, fontSizes, spacing } from "../../theme/theme";
 
 const StyledDashboardWrapper = styled.div<{ isSettingsOpen: boolean }>`
   align-items: center;
@@ -18,13 +17,13 @@ const StyledDashboardWrapper = styled.div<{ isSettingsOpen: boolean }>`
 `;
 
 const StyledSettingsBoardWrapper = styled.div<{ isSettingsOpen: boolean }>`
-  background: ${(props) => props.theme.colors.background_dark};
-  border-bottom: 1px solid ${(props) => props.theme.colors.white_20};
+  background: ${({ theme }) => theme.colors.background_dark};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.white_20};
   display: flex;
   flex-direction: column;
-  gap: ${(props) => props.theme.spacing.space_4};
+  gap: ${({ theme }) => theme.spacing.space_4};
   justify-content: space-between;
-  padding: ${(props) => props.theme.spacing.space_4};
+  padding: ${({ theme }) => theme.spacing.space_4};
   position: fixed;
   top: -293px;
   transition: top 0.4s ease;
@@ -32,7 +31,7 @@ const StyledSettingsBoardWrapper = styled.div<{ isSettingsOpen: boolean }>`
   z-index: 100;
 
   @media (min-width: 768px) {
-    border-right: 1px solid ${(props) => props.theme.colors.white_20};
+    border-right: 1px solid ${({ theme }) => theme.colors.white_20};
     flex-direction: row;
     gap: unset;
     left: -413px;
@@ -53,21 +52,5 @@ const StyledSettingsBoardWrapper = styled.div<{ isSettingsOpen: boolean }>`
       }
     `};
 `;
-
-StyledDashboardWrapper.defaultProps = {
-  theme: {
-    colors,
-    fontSizes,
-    spacing,
-  },
-};
-
-StyledSettingsBoardWrapper.defaultProps = {
-  theme: {
-    colors,
-    fontSizes,
-    spacing,
-  },
-};
 
 export { StyledDashboardWrapper, StyledSettingsBoardWrapper };

@@ -1,40 +1,31 @@
 import styled, { css } from "styled-components";
-import { colors, fontSizes, spacing } from "../../theme/theme";
 
 const StyledButton = styled.button<{ variant: string }>`
-  background: ${(props) => props.theme.colors.background_dark};
-  border: 1px solid ${(props) => props.theme.colors.white_70};
-  color: ${(props) => props.theme.colors.white_70};
+  background: ${({ theme }) => theme.colors.background_dark};
+  border: 1px solid ${({ theme }) => theme.colors.white_70};
+  color: ${({ theme }) => theme.colors.white_70};
   cursor: pointer;
   padding: 0.5rem 1rem;
 
   &:hover {
-    background: ${(props) => props.theme.colors.white_70};
-    border-color: ${(props) => props.theme.colors.white_20};
-    color: ${(props) => props.theme.colors.background};
+    background: ${({ theme }) => theme.colors.white_70};
+    border-color: ${({ theme }) => theme.colors.white_20};
+    color: ${({ theme }) => theme.colors.background};
   }
 
   ${({ variant }) =>
     variant === "primary" &&
     css`
-      background: ${(props) => props.theme.colors.main_dark};
-      border-color: ${(props) => props.theme.colors.main_dark};
-      color: ${(props) => props.theme.colors.white};
+      background: ${({ theme }) => theme.colors.main_dark};
+      border-color: ${({ theme }) => theme.colors.main_dark};
+      color: ${({ theme }) => theme.colors.white};
       font-weight: 600;
 
       &:hover {
-        background: ${(props) => props.theme.colors.main_second};
-        border-color: ${(props) => props.theme.colors.main_second};
+        background: ${({ theme }) => theme.colors.main_second};
+        border-color: ${({ theme }) => theme.colors.main_second};
       }
     `};
 `;
-
-StyledButton.defaultProps = {
-  theme: {
-    colors,
-    fontSizes,
-    spacing,
-  },
-};
 
 export { StyledButton };
