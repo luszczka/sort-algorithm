@@ -1,5 +1,4 @@
 import styled, { css } from "styled-components";
-import { colors, fontSizes, spacing } from "../../theme/theme";
 
 const StyledChartWrapper = styled.div<{
   isSettingsOpen?: boolean;
@@ -49,21 +48,5 @@ const StyledTooltip = styled.div<{ dataElementOffset: number }>`
     -webkit-text-stroke: 0.5px ${(props) => props.theme.colors.main};
   }
 `;
-
-StyledChartWrapper.defaultProps = {
-  theme: {
-    colors,
-    fontSizes,
-    spacing,
-  },
-};
-
-StyledTooltip.defaultProps = {
-  theme: {
-    colors,
-    fontSizes,
-    spacing,
-  },
-};
 
 export { StyledChartWrapper, StyledTooltip };

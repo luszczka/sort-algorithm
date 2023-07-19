@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { colors, fontSizes, spacing } from "../../theme/theme";
 
 const StyledSettingsInputs = styled.div`
   display: flex;
@@ -15,7 +14,7 @@ const StyledSettingsInputs = styled.div`
 
 const StyledInputsBeside = styled.div`
   display: flex;
-  gap: ${(props) => props.theme.spacing.space_4};
+  gap: ${({ theme }) => theme.spacing.space_4};
 `;
 
 const StyledInputWithLabel = styled.div`
@@ -24,35 +23,11 @@ const StyledInputWithLabel = styled.div`
 `;
 
 const StyledHeding = styled.div`
-  color: ${(props) => props.theme.colors.white};
-  font-size: ${(props) => props.theme.fontSizes.paragraph};
+  color: ${({ theme }) => theme.colors.white};
+  font-size: ${({ theme }) => theme.fontSizes.paragraph};
   text-align: left;
   width: 100%;
 `;
-
-StyledHeding.defaultProps = {
-  theme: {
-    colors,
-    fontSizes,
-    spacing,
-  },
-};
-
-StyledInputsBeside.defaultProps = {
-  theme: {
-    colors,
-    fontSizes,
-    spacing,
-  },
-};
-
-StyledSettingsInputs.defaultProps = {
-  theme: {
-    colors,
-    fontSizes,
-    spacing,
-  },
-};
 
 export {
   StyledSettingsInputs,

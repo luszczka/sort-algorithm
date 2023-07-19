@@ -1,9 +1,8 @@
 import styled from "styled-components";
-import { colors, fontSizes, spacing } from "../../theme/theme";
 
 const StyledCounterWrapper = styled.div`
   align-items: center;
-  color: ${(props) => props.theme.colors.white_70};
+  color: ${({ theme }) => theme.colors.white_70};
   display: flex;
   gap: 5px;
   height: inherit;
@@ -13,7 +12,7 @@ const StyledCounterWrapper = styled.div`
   width: 100%;
 
   & span {
-    color: ${(props) => props.theme.colors.main_second};
+    color: ${({ theme }) => theme.colors.main_second};
     width: 20px;
   }
 `;
@@ -27,13 +26,5 @@ const StyledText = styled.div`
     width: 100%;
   }
 `;
-
-StyledCounterWrapper.defaultProps = {
-  theme: {
-    colors,
-    fontSizes,
-    spacing,
-  },
-};
 
 export { StyledCounterWrapper, StyledText };
