@@ -1,6 +1,6 @@
 import { css, styled } from "styled-components";
 
-const StyledExpanderWrapper = styled.button<{ isSettingsOpen: boolean }>`
+const StyledExpanderWrapper = styled.button<{ $isSettingsOpen: boolean }>`
   align-items: center;
   background: ${({ theme }) => theme.colors.main_dark};
   border: none;
@@ -41,8 +41,8 @@ const StyledExpanderWrapper = styled.button<{ isSettingsOpen: boolean }>`
     }
   }
 
-  ${({ isSettingsOpen }) =>
-    isSettingsOpen &&
+  ${({ $isSettingsOpen }) =>
+    $isSettingsOpen &&
     css`
       top: 285px;
       transition: top 0.4s ease;

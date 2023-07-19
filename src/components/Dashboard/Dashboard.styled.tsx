@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-const StyledDashboardWrapper = styled.div<{ isSettingsOpen: boolean }>`
+const StyledDashboardWrapper = styled.div<{ $isSettingsOpen: boolean }>`
   align-items: center;
   display: flex;
   flex-direction: column;
@@ -9,14 +9,14 @@ const StyledDashboardWrapper = styled.div<{ isSettingsOpen: boolean }>`
   padding-bottom: 20px;
   position: relative;
 
-  ${({ isSettingsOpen }) =>
-    isSettingsOpen &&
+  ${({ $isSettingsOpen }) =>
+    $isSettingsOpen &&
     css`
       justify-content: flex-end;
     `};
 `;
 
-const StyledSettingsBoardWrapper = styled.div<{ isSettingsOpen: boolean }>`
+const StyledSettingsBoardWrapper = styled.div<{ $isSettingsOpen: boolean }>`
   background: ${({ theme }) => theme.colors.background_dark};
   border-bottom: 1px solid ${({ theme }) => theme.colors.white_20};
   display: flex;
@@ -40,8 +40,8 @@ const StyledSettingsBoardWrapper = styled.div<{ isSettingsOpen: boolean }>`
     transition: left 0.4s ease;
   }
 
-  ${({ isSettingsOpen }) =>
-    isSettingsOpen &&
+  ${({ $isSettingsOpen }) =>
+    $isSettingsOpen &&
     css`
       top: 0;
       transition: top 0.4s ease;

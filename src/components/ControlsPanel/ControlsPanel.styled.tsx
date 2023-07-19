@@ -19,7 +19,7 @@ const StyledControlsButtonWrapper = styled.div`
   z-index: 100;
 `;
 
-const StyledControlsButton = styled.button<{ variant: string }>`
+const StyledControlsButton = styled.button`
   align-items: center;
   background: ${({ theme }) => theme.colors.main_second};
   border: 1px solid ${({ theme }) => theme.colors.main_second};

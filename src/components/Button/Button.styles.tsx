@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-const StyledButton = styled.button<{ variant: string }>`
+const StyledButton = styled.button<{ $variant: string }>`
   background: ${({ theme }) => theme.colors.background_dark};
   border: 1px solid ${({ theme }) => theme.colors.white_70};
   color: ${({ theme }) => theme.colors.white_70};
@@ -13,8 +13,8 @@ const StyledButton = styled.button<{ variant: string }>`
     color: ${({ theme }) => theme.colors.background};
   }
 
-  ${({ variant }) =>
-    variant === "primary" &&
+  ${({ $variant }) =>
+    $variant === "primary" &&
     css`
       background: ${({ theme }) => theme.colors.main_dark};
       border-color: ${({ theme }) => theme.colors.main_dark};

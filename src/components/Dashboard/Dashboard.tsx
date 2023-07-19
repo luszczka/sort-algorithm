@@ -113,8 +113,8 @@ export const Dashboard = () => {
       : values;
 
   return (
-    <StyledDashboardWrapper isSettingsOpen={isSettingsOpen}>
-      <StyledSettingsBoardWrapper isSettingsOpen={isSettingsOpen}>
+    <StyledDashboardWrapper $isSettingsOpen={isSettingsOpen}>
+      <StyledSettingsBoardWrapper $isSettingsOpen={isSettingsOpen}>
         <SettingsInputs
           chartOptions={chartOptions}
           onElementsCountChange={onElementsCountChange}
