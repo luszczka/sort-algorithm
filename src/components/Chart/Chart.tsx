@@ -45,6 +45,7 @@ export const Chart = ({
   return (
     <>
       <StyledChartWrapper
+        data-testid="testChart"
         $isSettingsOpen={isSettingsOpen}
         $pivotIndex={pivotIndex}
         $pivotReference={pivotReference}

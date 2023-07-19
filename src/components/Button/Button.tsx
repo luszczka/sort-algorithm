@@ -1,11 +1,11 @@
-import { ReactNode } from "react";
+import { ButtonHTMLAttributes, ReactNode } from "react";
 import { StyledButton } from "./Button.styles";
 
-type ButtonProps = {
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
   onClick: () => void;
   variant?: "primary" | "secondary";
-};
+}
 
 export const Button = ({
   children,

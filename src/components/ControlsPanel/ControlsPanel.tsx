@@ -17,7 +17,7 @@ export const ControlsPanel = ({
   onSortClick,
 }: ControlsPanelProps) => {
   return (
-    <StyledControlsPanelWrapper>
+    <StyledControlsPanelWrapper data-testid="testControlsPanel">
       <StyledControlsButtonWrapper>
         <StyledControlsButton onClick={onSortClick}>
           {isSorting ? <div>||</div> : <span>&rsaquo;</span>}

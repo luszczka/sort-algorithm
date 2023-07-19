@@ -13,7 +13,7 @@ export const SettingsButtons = ({
   onResetClick,
 }: SettingsButtonsProps) => {
   return (
-    <StyledSettingsButtons>
+    <StyledSettingsButtons data-testid="testSettingsButtons">
       <Button onClick={onRandomClick}>set random</Button>
       <Button onClick={onResetClick}>reset</Button>
       <Button onClick={onGenerateChartClick} variant="primary">

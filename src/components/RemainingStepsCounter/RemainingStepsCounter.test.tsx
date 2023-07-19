@@ -1,16 +1,16 @@
 import { render, screen } from "@testing-library/react";
-import App from "./App";
+import { RemainingStepsCounter } from "./RemainingStepsCounter";
 import { ThemeProvider } from "styled-components";
-import theme from "./theme/theme";
+import theme from "../../theme/theme";
 
-describe("<App />", () => {
+describe("<RemainingStepsCounter />", () => {
   it("Should render", () => {
     render(
       <ThemeProvider theme={theme}>
-        <App />
+        <RemainingStepsCounter count={0} />
       </ThemeProvider>
     );
-    const element = screen.getByTestId("testApp");
+    const element = screen.getByTestId("testRemainingStepsCounter");
     expect(element).toBeInTheDocument();
   });
 });
