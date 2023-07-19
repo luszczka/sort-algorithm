@@ -1,4 +1,4 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, InputHTMLAttributes } from "react";
 import {
   StyledInput,
   StyledInputLabel,
@@ -6,11 +6,11 @@ import {
   StyledInputWrapper,
 } from "./Input.styled";
 
-type InputProps = {
+interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   inputValue: number;
   label: string;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
-};
+}
 
 export const Input = ({ inputValue, label, onChange }: InputProps) => {
   return (
