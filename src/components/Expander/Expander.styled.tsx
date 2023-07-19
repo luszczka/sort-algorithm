@@ -13,7 +13,7 @@ const StyledExpanderWrapper = styled.button<{ isSettingsOpen: boolean }>`
   font-size: 2.5rem;
   height: 2rem;
   justify-content: center;
-  position: absolute;
+  position: fixed;
   right: 0;
   top: 0;
   transition: top 0.4s ease;

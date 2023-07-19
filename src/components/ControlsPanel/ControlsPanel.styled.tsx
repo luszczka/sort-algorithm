@@ -1,13 +1,23 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { colors, fontSizes, spacing } from "../../theme/theme";
 
 const StyledControlsPanelWrapper = styled.div`
   align-items: center;
-  bottom: 20px;
+  background: ${(props) => props.theme.colors.background_opacity};
+  bottom: 0;
   display: flex;
-  gap: 0.5rem;
+  flex-direction: column;
+  height: 64px;
   justify-content: center;
   position: fixed;
+  width: 100%;
+`;
+
+const StyledControlsButtonWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  z-index: 100;
 `;
 
 const StyledControlsButton = styled.button<{ variant: string }>`
@@ -21,6 +31,7 @@ const StyledControlsButton = styled.button<{ variant: string }>`
   font-size: 3rem;
   height: 50px;
   justify-content: center;
+  margin-top: 10px;
   width: 50px;
 
   & div {
@@ -42,34 +53,15 @@ const StyledControlsButton = styled.button<{ variant: string }>`
     border-color: ${(props) => props.theme.colors.main_dark};
     color: ${(props) => props.theme.colors.white};
   }
-
-  ${({ variant }) =>
-    variant === "small" &&
-    css`
-      background: ${(props) => props.theme.colors.main_dark};
-      border-color: ${(props) => props.theme.colors.main_dark};
-      color: ${(props) => props.theme.colors.white};
-      font-size: 1rem;
-      font-weight: 600;
-      height: 30px;
-      padding-bottom: 4px;
-      width: 30px;
-
-      & span {
-        height: 0.2rem;
-        font-size: 2rem;
-        font-weight: 400;
-        line-height: 0;
-        width: 0.6rem;
-      }
-
-      &:hover {
-        background: ${(props) => props.theme.colors.main_second};
-        border-color: ${(props) => props.theme.colors.main_second};
-        color: ${(props) => props.theme.colors.background};
-      }
-    `};
 `;
+
+StyledControlsPanelWrapper.defaultProps = {
+  theme: {
+    colors,
+    fontSizes,
+    spacing,
+  },
+};
 
 StyledControlsButton.defaultProps = {
   theme: {
@@ -79,4 +71,8 @@ StyledControlsButton.defaultProps = {
   },
 };
 
-export { StyledControlsPanelWrapper, StyledControlsButton };
+export {
+  StyledControlsPanelWrapper,
+  StyledControlsButtonWrapper,
+  StyledControlsButton,
+};

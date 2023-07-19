@@ -8,12 +8,7 @@ type QuckSortTypes = {
 
 export const useQuickSort = ({ array }: QuckSortTypes) => {
   const [frames, setFrames] = useState<number[][]>([]);
-  const [pivots, setPivots] = useState<number[]>([]);
-
-  // const [frames, setFrames] = useState({
-  //   current: [],
-  //   pivotIndex: number
-  // });
+  const [pivots, setPivots] = useState([{ pivotIndex: 0, i: 0 }]);
 
   const partition = ({ array, start, end }: Partition): number => {
     let pivotIndex = start;
@@ -26,14 +21,13 @@ export const useQuickSort = ({ array }: QuckSortTypes) => {
       }
       const temp = [...array];
       setFrames((previous) => [...previous, temp]);
-      setPivots((previous) => [...previous, pivotIndex]);
-      // console.log(i, "start", pivotIndex, "pivotIndex");
+      setPivots((previous) => [...previous, { pivotIndex, i }]);
     }
 
     swapElementsInArray({ array: array, a: pivotIndex, b: end });
     const temp = [...array];
     setFrames((previous) => [...previous, temp]);
-    setPivots((previous) => [...previous, pivotIndex]);
+    setPivots((previous) => [...previous, { pivotIndex, i: end }]);
 
     return pivotIndex;
   };
@@ -48,6 +42,7 @@ export const useQuickSort = ({ array }: QuckSortTypes) => {
 
   const quickSort = (array: number[]) => {
     setFrames([]);
+    setPivots([]);
     sort(array, 0, array.length - 1);
   };
 
@@ -55,7 +50,5 @@ export const useQuickSort = ({ array }: QuckSortTypes) => {
     quickSort([...array]);
   }, []);
 
-  // console.log(pivots, "pivots");
-
-  return { frames, quickSort };
+  return { frames, quickSort, pivots };
 };

@@ -1,9 +1,12 @@
 const colors = {
   background: "#202030",
   background_dark: "#1b1b28",
+  background_opacity: "#1b1b2844",
   main: "#5b507a",
   main_dark: "#38304b",
   main_second: "#FED05D",
+  main_second_light: "#6f6343",
+  whitest: "#fff",
   white: "#bdbdbd",
   white_20: "#bdbdbd2a",
   white_70: "#bdbdbd70",

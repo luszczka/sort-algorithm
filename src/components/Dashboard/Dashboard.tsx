@@ -25,14 +25,17 @@ export const Dashboard = () => {
   const [values, setValues] = useState<number[][]>([]);
   const [counter, setCounter] = useState(0);
   const [isSorting, setIsSorting] = useState(false);
+  const [sortSpeed, setSortSpeed] = useState(700);
 
-  const { frames, quickSort } = useQuickSort({ array: chartValues ?? [] });
+  const { frames, quickSort, pivots } = useQuickSort({
+    array: chartValues ?? [],
+  });
 
   useEffect(() => {
     if (values && counter < values.length - 1 && isSorting) {
       const interval = window.setInterval(() => {
         setCounter((counter) => counter + 1);
-      }, 300);
+      }, 1000 - sortSpeed);
       return () => window.clearInterval(interval);
     }
     if (counter > 0 && counter === values.length - 1) {
@@ -52,6 +55,9 @@ export const Dashboard = () => {
   };
   const onElementsCountChange = (event: ChangeEvent<HTMLInputElement>) => {
     setChartOptions({ ...chartOptions, chartSize: +event.target.value });
+  };
+  const onSortSpeedChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setSortSpeed(+event.target.value);
   };
 
   const onGenerateChartClick = () => {
@@ -107,13 +113,15 @@ export const Dashboard = () => {
       : values;
 
   return (
-    <StyledDashboardWrapper>
+    <StyledDashboardWrapper isSettingsOpen={isSettingsOpen}>
       <StyledSettingsBoardWrapper isSettingsOpen={isSettingsOpen}>
         <SettingsInputs
           chartOptions={chartOptions}
           onElementsCountChange={onElementsCountChange}
           onMaxRangeChange={onMaxRangeChange}
           onMinRangeChange={onMinRangeChange}
+          onSortSpeedChange={onSortSpeedChange}
+          sortSpeed={sortSpeed}
         />
         <SettingsButtons
           onGenerateChartClick={onGenerateChartClick}
@@ -124,11 +132,13 @@ export const Dashboard = () => {
       <Expander isSettingsOpen={isSettingsOpen} onClick={onExpanderClick} />
       {displayData.length > 0 && (
         <Chart
-          count={displayData.length - counter}
+          count={counter}
+          dataLength={displayData.length}
           data={displayData[counter]}
           isSettingsOpen={isSettingsOpen}
           isSorting={isSorting}
           onSortClick={onSortClick}
+          pivots={pivots}
         />
       )}
     </StyledDashboardWrapper>

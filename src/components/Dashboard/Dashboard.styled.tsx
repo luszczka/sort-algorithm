@@ -1,14 +1,20 @@
 import styled, { css } from "styled-components";
 import { colors, fontSizes, spacing } from "../../theme/theme";
 
-const StyledDashboardWrapper = styled.div`
+const StyledDashboardWrapper = styled.div<{ isSettingsOpen: boolean }>`
   align-items: center;
   display: flex;
   flex-direction: column;
   height: 100vh;
-  justify-content: flex-end;
+  justify-content: center;
   padding-bottom: 20px;
   position: relative;
+
+  ${({ isSettingsOpen }) =>
+    isSettingsOpen &&
+    css`
+      justify-content: flex-end;
+    `};
 `;
 
 const StyledSettingsBoardWrapper = styled.div<{ isSettingsOpen: boolean }>`
@@ -20,7 +26,7 @@ const StyledSettingsBoardWrapper = styled.div<{ isSettingsOpen: boolean }>`
   justify-content: space-between;
   padding: ${(props) => props.theme.spacing.space_4};
   position: fixed;
-  top: -286px;
+  top: -293px;
   transition: top 0.4s ease;
   width: -webkit-fill-available;
   z-index: 100;
