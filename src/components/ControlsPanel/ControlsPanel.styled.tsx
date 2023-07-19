@@ -42,33 +42,6 @@ const StyledControlsButton = styled.button<{ variant: string }>`
     border-color: ${(props) => props.theme.colors.main_dark};
     color: ${(props) => props.theme.colors.white};
   }
-
-  ${({ variant }) =>
-    variant === "small" &&
-    css`
-      background: ${(props) => props.theme.colors.main_dark};
-      border-color: ${(props) => props.theme.colors.main_dark};
-      color: ${(props) => props.theme.colors.white};
-      font-size: 1rem;
-      font-weight: 600;
-      height: 30px;
-      padding-bottom: 4px;
-      width: 30px;
-
-      & span {
-        height: 0.2rem;
-        font-size: 2rem;
-        font-weight: 400;
-        line-height: 0;
-        width: 0.6rem;
-      }
-
-      &:hover {
-        background: ${(props) => props.theme.colors.main_second};
-        border-color: ${(props) => props.theme.colors.main_second};
-        color: ${(props) => props.theme.colors.background};
-      }
-    `};
 `;
 
 StyledControlsButton.defaultProps = {

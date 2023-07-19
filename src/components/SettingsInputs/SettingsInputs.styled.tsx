@@ -26,11 +26,8 @@ const StyledInputWithLabel = styled.div`
 const StyledHeding = styled.div`
   color: ${(props) => props.theme.colors.white};
   font-size: ${(props) => props.theme.fontSizes.paragraph};
-  text-align: center;
-
-  @media (min-width: 768px) {
-    text-align: left;
-  }
+  text-align: left;
+  width: 100%;
 `;
 
 StyledHeding.defaultProps = {

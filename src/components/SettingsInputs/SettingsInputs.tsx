@@ -1,5 +1,5 @@
 import { ChangeEvent } from "react";
-import { Input } from "../Input/Input";
+import { Input, InputRange } from "../Input/Input";
 import {
   StyledInputWithLabel,
   StyledInputsBeside,
@@ -13,6 +13,8 @@ type SettingsInputsProps = {
   onElementsCountChange: (event: ChangeEvent<HTMLInputElement>) => void;
   onMaxRangeChange: (event: ChangeEvent<HTMLInputElement>) => void;
   onMinRangeChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  onSortSpeedChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  sortSpeed: number;
 };
 
 export const SettingsInputs = ({
@@ -20,10 +22,21 @@ export const SettingsInputs = ({
   onElementsCountChange,
   onMaxRangeChange,
   onMinRangeChange,
+  onSortSpeedChange,
+  sortSpeed,
 }: SettingsInputsProps) => {
   return (
     <StyledSettingsInputs>
-      <StyledHeding>chart settings</StyledHeding>
+      <StyledInputsBeside>
+        <StyledHeding>chart settings</StyledHeding>
+        <StyledInputWithLabel>
+          <InputRange
+            inputValue={sortSpeed}
+            label="sort speed"
+            onChange={onSortSpeedChange}
+          />
+        </StyledInputWithLabel>
+      </StyledInputsBeside>
       <StyledInputWithLabel>
         <Input
           inputValue={chartOptions.chartSize}

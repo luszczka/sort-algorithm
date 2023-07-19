@@ -25,6 +25,7 @@ export const Dashboard = () => {
   const [values, setValues] = useState<number[][]>([]);
   const [counter, setCounter] = useState(0);
   const [isSorting, setIsSorting] = useState(false);
+  const [sortSpeed, setSortSpeed] = useState(700);
 
   const { frames, quickSort, pivots } = useQuickSort({
     array: chartValues ?? [],
@@ -34,7 +35,7 @@ export const Dashboard = () => {
     if (values && counter < values.length - 1 && isSorting) {
       const interval = window.setInterval(() => {
         setCounter((counter) => counter + 1);
-      }, 300);
+      }, 1000 - sortSpeed);
       return () => window.clearInterval(interval);
     }
     if (counter > 0 && counter === values.length - 1) {
@@ -54,6 +55,9 @@ export const Dashboard = () => {
   };
   const onElementsCountChange = (event: ChangeEvent<HTMLInputElement>) => {
     setChartOptions({ ...chartOptions, chartSize: +event.target.value });
+  };
+  const onSortSpeedChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setSortSpeed(+event.target.value);
   };
 
   const onGenerateChartClick = () => {
@@ -116,6 +120,8 @@ export const Dashboard = () => {
           onElementsCountChange={onElementsCountChange}
           onMaxRangeChange={onMaxRangeChange}
           onMinRangeChange={onMinRangeChange}
+          onSortSpeedChange={onSortSpeedChange}
+          sortSpeed={sortSpeed}
         />
         <SettingsButtons
           onGenerateChartClick={onGenerateChartClick}

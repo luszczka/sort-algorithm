@@ -22,6 +22,36 @@ const StyledInput = styled.input`
   width: 100%;
 `;
 
+const StyledInputRange = styled.input`
+  -webkit-appearance: none;
+  appearance: none;
+  border-radius: 10px;
+  height: 10px;
+  margin-top: 10px;
+  width: 100%;
+
+  &::-webkit-slider-runnable-track {
+    background: ${(props) => props.theme.colors.main_second_light};
+    border-radius: 10px;
+    height: 10px;
+  }
+
+  &::-moz-range-track {
+    height: 15px;
+    background: ${(props) => props.theme.colors.background};
+  }
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    background: ${(props) => props.theme.colors.main_second};
+    border-radius: 50%;
+    height: 20px;
+    margin-top: -5px;
+    width: 20px;
+  }
+`;
+
 StyledInputLabel.defaultProps = {
   theme: {
     colors,
@@ -38,4 +68,12 @@ StyledInput.defaultProps = {
   },
 };
 
-export { StyledInputWrapper, StyledInputLabel, StyledInput };
+StyledInputRange.defaultProps = {
+  theme: {
+    colors,
+    fontSizes,
+    spacing,
+  },
+};
+
+export { StyledInputWrapper, StyledInputLabel, StyledInput, StyledInputRange };
