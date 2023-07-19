@@ -1,16 +1,16 @@
 import { render, screen } from "@testing-library/react";
-import App from "./App";
+import { Dashboard } from "./Dashboard";
 import { ThemeProvider } from "styled-components";
-import theme from "./theme/theme";
+import theme from "../../theme/theme";
 
-describe("<App />", () => {
+describe("<Dashboard />", () => {
   it("Should render", () => {
     render(
       <ThemeProvider theme={theme}>
-        <App />
+        <Dashboard />
       </ThemeProvider>
     );
-    const element = screen.getByTestId("testApp");
+    const element = screen.getByTestId("testDashboard");
     expect(element).toBeInTheDocument();
   });
 });

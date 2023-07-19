@@ -26,7 +26,7 @@ export const SettingsInputs = ({
   sortSpeed,
 }: SettingsInputsProps) => {
   return (
-    <StyledSettingsInputs>
+    <StyledSettingsInputs data-testid="testSettingsInputs">
       <StyledInputsBeside>
         <StyledHeding>chart settings</StyledHeding>
         <StyledInputWithLabel>

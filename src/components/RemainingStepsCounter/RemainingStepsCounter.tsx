@@ -11,7 +11,7 @@ export const RemainingStepsCounter = ({
   count,
 }: RemainingStepsCounterProps) => {
   return (
-    <StyledCounterWrapper>
+    <StyledCounterWrapper data-testid="testRemainingStepsCounter">
       <StyledText>sorting steps left</StyledText>
       <span>{count > 1 ? count : "-"}</span>
     </StyledCounterWrapper>
