@@ -1,11 +1,6 @@
 import { BarChart, Bar, ResponsiveContainer } from "recharts";
-import {
-  StyledChartWrapper,
-  StyledCounterWrapper,
-  StyledTooltip,
-} from "./Chart.styled";
+import { StyledChartWrapper, StyledTooltip } from "./Chart.styled";
 import { ControlsPanel } from "../ControlsPanel/ControlsPanel";
-import { RemainingStepsCounter } from "../RemainingStepsCounter/RemainingStepsCounter";
 import { useState } from "react";
 
 type ChartProps = {
@@ -49,10 +44,11 @@ export const Chart = ({
   return (
     <>
       <StyledChartWrapper
+        isSettingsOpen={isSettingsOpen}
         pivotIndex={pivotIndex}
         pivotReference={pivotReference}
       >
-        <ResponsiveContainer height={isSettingsOpen ? 300 : 600} width={"100%"}>
+        <ResponsiveContainer height={isSettingsOpen ? 270 : 580} width={"100%"}>
           <BarChart data={data}>
             <Bar
               dataKey={(v) => v}
@@ -68,10 +64,11 @@ export const Chart = ({
           <span>{dataElementHeight}</span>
         </StyledTooltip>
       </StyledChartWrapper>
-      <ControlsPanel isSorting={isSorting} onSortClick={onSortClick} />
-      <StyledCounterWrapper>
-        <RemainingStepsCounter count={dataLength - count} />
-      </StyledCounterWrapper>
+      <ControlsPanel
+        count={dataLength - count}
+        isSorting={isSorting}
+        onSortClick={onSortClick}
+      />
     </>
   );
 };

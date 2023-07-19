@@ -1,13 +1,23 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { colors, fontSizes, spacing } from "../../theme/theme";
 
 const StyledControlsPanelWrapper = styled.div`
   align-items: center;
-  bottom: 20px;
+  background: ${(props) => props.theme.colors.background_opacity};
+  bottom: 0;
   display: flex;
-  gap: 0.5rem;
+  flex-direction: column;
+  height: 64px;
   justify-content: center;
   position: fixed;
+  width: 100%;
+`;
+
+const StyledControlsButtonWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  z-index: 100;
 `;
 
 const StyledControlsButton = styled.button<{ variant: string }>`
@@ -21,6 +31,7 @@ const StyledControlsButton = styled.button<{ variant: string }>`
   font-size: 3rem;
   height: 50px;
   justify-content: center;
+  margin-top: 10px;
   width: 50px;
 
   & div {
@@ -44,6 +55,14 @@ const StyledControlsButton = styled.button<{ variant: string }>`
   }
 `;
 
+StyledControlsPanelWrapper.defaultProps = {
+  theme: {
+    colors,
+    fontSizes,
+    spacing,
+  },
+};
+
 StyledControlsButton.defaultProps = {
   theme: {
     colors,
@@ -52,4 +71,8 @@ StyledControlsButton.defaultProps = {
   },
 };
 
-export { StyledControlsPanelWrapper, StyledControlsButton };
+export {
+  StyledControlsPanelWrapper,
+  StyledControlsButtonWrapper,
+  StyledControlsButton,
+};

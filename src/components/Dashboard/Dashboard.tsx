@@ -113,7 +113,7 @@ export const Dashboard = () => {
       : values;
 
   return (
-    <StyledDashboardWrapper>
+    <StyledDashboardWrapper isSettingsOpen={isSettingsOpen}>
       <StyledSettingsBoardWrapper isSettingsOpen={isSettingsOpen}>
         <SettingsInputs
           chartOptions={chartOptions}

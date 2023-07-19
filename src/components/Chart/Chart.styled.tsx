@@ -2,14 +2,16 @@ import styled, { css } from "styled-components";
 import { colors, fontSizes, spacing } from "../../theme/theme";
 
 const StyledChartWrapper = styled.div<{
+  isSettingsOpen?: boolean;
   pivotIndex: number | undefined;
   pivotReference: number | undefined;
 }>`
   align-items: flex-end;
   display: flex;
   justify-content: center;
-  width: 100%;
+  padding-bottom: 105px;
   position: relative;
+  width: 100%;
 
   ${({ pivotReference, pivotIndex }) =>
     pivotReference &&
@@ -23,13 +25,19 @@ const StyledChartWrapper = styled.div<{
       }
     `};
 
+  ${({ isSettingsOpen }) =>
+    isSettingsOpen &&
+    css`
+      padding-bottom: 55px;
+    `};
+
   & path:hover {
     fill: ${(props) => props.theme.colors.main_second};
   }
 `;
 
 const StyledTooltip = styled.div<{ dataElementOffset: number }>`
-  bottom: -6px;
+  bottom: 98px;
   font-size: 3rem;
   font-weight: 900;
   left: ${({ dataElementOffset }) => dataElementOffset}px;
@@ -40,11 +48,6 @@ const StyledTooltip = styled.div<{ dataElementOffset: number }>`
     color: ${(props) => props.theme.colors.whitest};
     -webkit-text-stroke: 0.5px ${(props) => props.theme.colors.main};
   }
-`;
-
-const StyledCounterWrapper = styled.div`
-  height: 70px;
-  width: 100%;
 `;
 
 StyledChartWrapper.defaultProps = {
@@ -63,4 +66,4 @@ StyledTooltip.defaultProps = {
   },
 };
 
-export { StyledChartWrapper, StyledCounterWrapper, StyledTooltip };
+export { StyledChartWrapper, StyledTooltip };

@@ -1,6 +1,7 @@
 const colors = {
   background: "#202030",
   background_dark: "#1b1b28",
+  background_opacity: "#1b1b2844",
   main: "#5b507a",
   main_dark: "#38304b",
   main_second: "#FED05D",
