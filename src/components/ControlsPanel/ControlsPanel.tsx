@@ -19,7 +19,7 @@ export const ControlsPanel = ({
   return (
     <StyledControlsPanelWrapper>
       <StyledControlsButtonWrapper>
-        <StyledControlsButton variant="big" onClick={onSortClick}>
+        <StyledControlsButton onClick={onSortClick}>
           {isSorting ? <div>||</div> : <span>&rsaquo;</span>}
         </StyledControlsButton>
       </StyledControlsButtonWrapper>

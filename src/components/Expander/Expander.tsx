@@ -7,7 +7,7 @@ type ExpanderProps = {
 
 export const Expander = ({ isSettingsOpen, onClick }: ExpanderProps) => {
   return (
-    <StyledExpanderWrapper isSettingsOpen={isSettingsOpen} onClick={onClick}>
+    <StyledExpanderWrapper $isSettingsOpen={isSettingsOpen} onClick={onClick}>
       <span>&lsaquo;</span>
     </StyledExpanderWrapper>
   );

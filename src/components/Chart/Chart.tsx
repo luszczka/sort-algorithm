@@ -45,9 +45,9 @@ export const Chart = ({
   return (
     <>
       <StyledChartWrapper
-        isSettingsOpen={isSettingsOpen}
-        pivotIndex={pivotIndex}
-        pivotReference={pivotReference}
+        $isSettingsOpen={isSettingsOpen}
+        $pivotIndex={pivotIndex}
+        $pivotReference={pivotReference}
       >
         <ResponsiveContainer height={isSettingsOpen ? 270 : 580} width={"100%"}>
           <BarChart data={data}>
@@ -60,7 +60,7 @@ export const Chart = ({
           </BarChart>
         </ResponsiveContainer>
         <StyledTooltip
-          dataElementOffset={dataElementOffset ? dataElementOffset + 10 : 0}
+          $dataElementOffset={dataElementOffset ? dataElementOffset + 10 : 0}
         >
           <span>{dataElementHeight}</span>
         </StyledTooltip>

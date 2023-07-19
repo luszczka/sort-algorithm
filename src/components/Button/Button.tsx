@@ -13,7 +13,7 @@ export const Button = ({
   variant = "secondary",
 }: ButtonProps) => {
   return (
-    <StyledButton onClick={onClick} variant={variant}>
+    <StyledButton onClick={onClick} $variant={variant}>
       {children}
     </StyledButton>
   );

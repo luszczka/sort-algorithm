@@ -1,9 +1,9 @@
 import styled, { css } from "styled-components";
 
 const StyledChartWrapper = styled.div<{
-  isSettingsOpen?: boolean;
-  pivotIndex: number | undefined;
-  pivotReference: number | undefined;
+  $isSettingsOpen?: boolean;
+  $pivotIndex: number | undefined;
+  $pivotReference: number | undefined;
 }>`
   align-items: flex-end;
   display: flex;
@@ -12,20 +12,20 @@ const StyledChartWrapper = styled.div<{
   position: relative;
   width: 100%;
 
-  ${({ pivotReference, pivotIndex }) =>
-    pivotReference &&
-    pivotIndex &&
+  ${({ $pivotReference, $pivotIndex }) =>
+    $pivotReference &&
+    $pivotIndex &&
     css`
-      & g > g > g:nth-child(${pivotIndex}) > path {
+      & g > g > g:nth-child(${$pivotIndex}) > path {
         fill: ${(props) => props.theme.colors.main_dark};
       }
-      & g > g > g:nth-child(${pivotReference}) > path {
+      & g > g > g:nth-child(${$pivotReference}) > path {
         fill: ${(props) => props.theme.colors.main_second};
       }
     `};
 
-  ${({ isSettingsOpen }) =>
-    isSettingsOpen &&
+  ${({ $isSettingsOpen }) =>
+    $isSettingsOpen &&
     css`
       padding-bottom: 55px;
     `};
@@ -35,11 +35,11 @@ const StyledChartWrapper = styled.div<{
   }
 `;
 
-const StyledTooltip = styled.div<{ dataElementOffset: number }>`
+const StyledTooltip = styled.div<{ $dataElementOffset: number }>`
   bottom: 98px;
   font-size: 3rem;
   font-weight: 900;
-  left: ${({ dataElementOffset }) => dataElementOffset}px;
+  left: ${({ $dataElementOffset }) => $dataElementOffset}px;
   pointer-events: none;
   position: absolute;
 
