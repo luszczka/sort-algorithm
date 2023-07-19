@@ -1,8 +1,9 @@
 import { BarChart, Bar, ResponsiveContainer } from "recharts";
-import { StyledChartWrapper, StyledTooltip } from "./Chart.styled";
+import { StyledChartWrapper, StyledTooltip, StyledLogo } from "./Chart.styled";
 import { ControlsPanel } from "../ControlsPanel/ControlsPanel";
 import { useState } from "react";
 import { ChartBarEvent } from "../../types/types";
+import { Logo } from "../Logo/Logo";
 
 type ChartProps = {
   count: number;
@@ -50,6 +51,9 @@ export const Chart = ({
         $pivotIndex={pivotIndex}
         $pivotReference={pivotReference}
       >
+        <StyledLogo $isSettingsOpen={isSettingsOpen}>
+          <Logo />
+        </StyledLogo>
         <ResponsiveContainer height={isSettingsOpen ? 270 : 580} width={"100%"}>
           <BarChart data={data}>
             <Bar

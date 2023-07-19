@@ -49,4 +49,28 @@ const StyledTooltip = styled.div<{ $dataElementOffset: number }>`
   }
 `;
 
-export { StyledChartWrapper, StyledTooltip };
+const StyledLogo = styled.div<{
+  $isSettingsOpen?: boolean;
+}>`
+  position: absolute;
+  left: 5px;
+  opacity: 0.2;
+  top: 35px;
+  transition: all 0.4s ease;
+  width: 30px;
+  z-index: 90;
+
+  @media (min-width: 768px) {
+    left: unset;
+    right: 5px;
+  }
+
+  ${({ $isSettingsOpen }) =>
+    $isSettingsOpen &&
+    css`
+      top: 5px;
+      transition: all 0.4s ease;
+    `};
+`;
+
+export { StyledChartWrapper, StyledTooltip, StyledLogo };
